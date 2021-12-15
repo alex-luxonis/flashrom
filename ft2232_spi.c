@@ -79,7 +79,10 @@ const struct dev_entry devs_ft2232spi[] = {
 	{0},
 };
 
-#define DEFAULT_DIVISOR 2
+/* Initial divider of 2 generates a too high SPI freq with FT2232H (ARM-USB-TINY-H) that fails.
+ * 20 results in 6MHz
+ */
+#define DEFAULT_DIVISOR 20
 
 #define BITMODE_BITBANG_NORMAL	1
 #define BITMODE_BITBANG_SPI	2
