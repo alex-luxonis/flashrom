@@ -2231,6 +2231,13 @@ int prepare_flash_access(struct flashctx *const flash,
 
 void finalize_flash_access(struct flashctx *const flash)
 {
+	/* FIXME: this needs extra checks about the flash being already in 4BA mode before flashrom start */
+	if (flash->in_4ba_mode) {
+		int ret = spi_exit_4ba(flash);
+		if (ret) {
+			msg_cerr("Failed to exit from 4BA mode!\n");
+		}
+	}
 	unmap_flash(flash);
 }
 
